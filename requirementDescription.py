@@ -15,5 +15,5 @@ class RequirementDescription:
         return string
 
     def get_full_description(self):
-        return self.wantTo +  self.soThat
+        return self.asA[1:-1] + " " + self.wantTo[1:-1] + " " + self.soThat[1:-1]
 
