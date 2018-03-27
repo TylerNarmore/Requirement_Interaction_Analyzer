@@ -9,8 +9,13 @@ def main():
 #    resource = input("Enter resource to be checked: ")
 
     requirements_file = sys.argv[1]
-    resource = sys.argv[2]
-
+    if sys.argv[2] == '-f':
+        resource_file_name = sys.argv[3]
+        resource_file = open(resource_file_name, 'r')
+        resources = resource_file.readline().rstrip('\n').split(',')
+        resource_file.close()
+    else:
+        resources = [sys.argv[2]]
 
     # Extracting requirements from CSV file
     requirements_dictionary = extractFromCSV(requirements_file)
@@ -29,9 +34,15 @@ def main():
     # Gathering list of items not related to resource
     to_be_deleted = []
     for item in relationships:
-        if resource not in requirements_dictionary[item].get_full_description():
+        valid = False
+        for term in resources:
+            if term not in requirements_dictionary[item].get_full_description():
+                pass
+            else:
+                valid=True
+                break
+        if not valid:
             to_be_deleted.append(item)
-
     # Removing items not related to resource
     for item in to_be_deleted:
         del relationships[item]
@@ -45,7 +56,7 @@ def main():
     outputFile = open("output.txt", 'w')
 
     outputFile.write("Resource: ")
-    outputFile.write(resource)
+    outputFile.write(', '.join(resources))
     outputFile.write("\n")
 
     for item in relationships:

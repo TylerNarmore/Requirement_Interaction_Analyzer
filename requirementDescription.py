@@ -1,5 +1,3 @@
-
-
 class RequirementDescription:
     def __init__(self, number, title, asA, wantTo, soThat):
         self.number = int(number)

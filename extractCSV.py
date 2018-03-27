@@ -1,4 +1,4 @@
-from  requirementDescription import RequirementDescription
+from requirementDescription import RequirementDescription
 # ExtractCSV.py
 
 # Function: extractFromCSV

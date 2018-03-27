@@ -1,5 +1,4 @@
 from copy import deepcopy
-import statistics
 
 class Jaccard:
     def __init__(self, description_list):
