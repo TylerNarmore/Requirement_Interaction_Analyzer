@@ -6,12 +6,15 @@ TextBlob
 ## Running the Program
 
 ### Arguments
-python3 run.py [CSV Filename] <-f resource file | resource>
+-i [input file]
 
-#### Example
-python3 run.py inputFile.csv -f resourceFile.txt
+-o [output file] default = output.txt
 
-python3 run.py inputFile.csv workgroup
+-f [resource file]
+
+-r [resource]
+
+-t [threshold(float between 0 and 1)] default = 0.25
 
 ## Input File Formats
 ### CSV File

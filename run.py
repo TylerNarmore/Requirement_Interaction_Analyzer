@@ -7,15 +7,30 @@ import sys
 def main():
 #    requirements_file = input("Enter name of csv file containing the requirement descriptions: ")
 #    resource = input("Enter resource to be checked: ")
+    for arg in range(len(sys.argv)):
+        # input output file flags
+        if sys.argv[arg] == '-i':
+            requirements_file = sys.argv[arg+1]
 
-    requirements_file = sys.argv[1]
-    if sys.argv[2] == '-f':
-        resource_file_name = sys.argv[3]
-        resource_file = open(resource_file_name, 'r')
-        resources = resource_file.readline().rstrip('\n').split(',')
-        resource_file.close()
-    else:
-        resources = [sys.argv[2]]
+        if sys.argv[arg] == '-o':
+            output_file_name = sys.argv[arg+1]
+        elif '-o' not in sys.argv:
+            output_file_name = "output.txt"
+
+        # resource flags
+        if sys.argv[arg] == '-f':
+            resource_file_name = sys.argv[arg+1]
+            resource_file = open(resource_file_name, 'r')
+            resources = resource_file.readline().rstrip('\n').split(',')
+            resource_file.close()
+        if sys.argv[arg] == '-r':
+            resources = sys.argv[arg+1]
+
+        if sys.argv[arg] == '-t':
+            threshold = float(sys.argv[arg+1])
+        elif '-t' not in sys.argv:
+            threshold = 0.25
+
 
     # Extracting requirements from CSV file
     requirements_dictionary = extractFromCSV(requirements_file)
@@ -29,7 +44,7 @@ def main():
 
     # Running Jaccard indexing to get relationships
     jaccard = Jaccard(description_list)
-    relationships = jaccard.calculate()
+    relationships = jaccard.calculate(threshold)
 
     # Gathering list of items not related to resource
     to_be_deleted = []
@@ -53,7 +68,7 @@ def main():
 
 
     #Output to file
-    outputFile = open("output.txt", 'w')
+    outputFile = open(output_file_name, 'w')
 
     outputFile.write("Resource: ")
     outputFile.write(', '.join(resources))

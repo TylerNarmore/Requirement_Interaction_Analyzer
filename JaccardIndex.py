@@ -11,7 +11,7 @@ class Jaccard:
         self.description_word_list = list(set(self.description_word_list))
 
 
-    def calculate(self):
+    def calculate(self, threshold):
 
         # Create table to store words and appearnce of those words in a requirement
         jaccard_table = {}
@@ -49,7 +49,6 @@ class Jaccard:
                 jaccard_score_table[item_a][item_b] = score
 
         # Return list of items that are above set threshold
-        threshold = 0.25
         relationships_table = {}
         for item_a in jaccard_score_table:
             item_relationships = []
