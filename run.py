@@ -24,7 +24,7 @@ def main():
             resources = resource_file.readline().rstrip('\n').split(',')
             resource_file.close()
         if sys.argv[arg] == '-r':
-            resources = sys.argv[arg+1]
+            resources = [sys.argv[arg+1]]
 
         if sys.argv[arg] == '-t':
             threshold = float(sys.argv[arg+1])
@@ -75,10 +75,8 @@ def main():
     outputFile.write("\n")
 
     for item in relationships:
-        if len(relationships[item]) > 0:
-            string = str(item) + ":\t"
-            string += ",\t".join(list(map(lambda  x: str(x), relationships[item])))
-            string += "\n"
+        for item_b in relationships[item]:
+            string = str(item) + "," + str(item_b) + "\n"
             outputFile.write(string)
 
     outputFile.close()
