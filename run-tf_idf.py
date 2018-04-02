@@ -26,7 +26,7 @@ def main():
             resource_file.close()
         if sys.argv[arg] == '-r':
             resources = [sys.argv[arg + 1]]
-        if '-f' not in sys.argv or '-r' not in sys.argv:
+        if '-f' not in sys.argv and '-r' not in sys.argv:
             raise ValueError("No resource input")
 
         if sys.argv[arg] == '-t':
